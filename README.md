@@ -14,12 +14,10 @@
 
 ## 功能特性
 
-- 文本对话：支持 SSE 流式返回
 - 语音对话：录音 → ASR 识别 → LLM 回复 → TTS 语音播放
 - 语音唤醒：自定义唤醒词，免触控开始对话
 - TTS 控制：可选语音/文本回答模式，支持音色、语速、音调、音量调节
 - 会话管理：多会话切换、历史记录、左滑删除
-- 用户系统：注册、登录、JWT 认证
 
 ## 项目结构
 
@@ -67,15 +65,8 @@ VoiceAssistant/
 | Python | 3.10+ |
 | Flutter SDK | 3.0.0+ |
 | Android SDK | API 21+ |
-| 阿里云 DashScope | 需要 API Key |
 
-### 第一步：获取 DashScope API Key
-
-1. 访问 [阿里云 DashScope 控制台](https://dashscope.console.aliyun.com/)
-2. 注册/登录后，在 **API-KEY 管理** 中创建 API Key
-3. 该 Key 将用于 ASR、TTS、LLM 三项服务
-
-### 第二步：配置后端
+### 第一步：配置后端
 
 ```bash
 # 进入后端目录
@@ -126,11 +117,14 @@ SERVER_PORT=8000
 
 > **注意**：ASR、TTS、LLM 的 API Key 可以使用同一个 DashScope Key。
 
-### 第三步：启动后端
+### 第二步：启动后端
 
 **方式一：使用启动脚本（Windows）**
 
 双击项目根目录下的 `start.bat`，会自动创建虚拟环境、安装依赖并启动服务。
+```bash
+cd 本项目目录 && start.bat
+```
 
 **方式二：手动启动**
 
@@ -144,7 +138,7 @@ python -m uvicorn main:app --host 0.0.0.0 --port 8000
 - API 服务：http://localhost:8000
 - 交互式文档：http://localhost:8000/docs
 
-### 第四步：构建 Flutter 移动端
+### 第三步：构建 Flutter 移动端
 
 ```bash
 cd mobile
@@ -158,7 +152,7 @@ flutter build apk --debug
 
 构建产物位于：`mobile/build/app/outputs/flutter-apk/app-debug.apk`
 
-### 第五步：安装到 Android 设备
+### 第四步：安装到 Android 设备
 
 **USB 连接真机调试：**
 
@@ -185,30 +179,6 @@ static const String baseUrl = 'http://10.0.2.2:8000';
 static const String wsUrl = 'ws://10.0.2.2:8000';
 ```
 
-### 第六步：使用应用
-
-1. 打开 APP，注册一个账号并登录
-2. 在聊天界面输入文字或点击麦克风按钮进行语音对话
-3. 点击左下角图标切换「语音回答」/「文本回答」模式
-4. 在设置中可调整音色、语速、音调、音量
-5. 开启「语音唤醒」后，说出唤醒词（默认"你好助手"）即可免触控对话
-
-## API 接口概览
-
-| 模块 | 路径 | 说明 |
-|------|------|------|
-| 认证 | `POST /api/auth/register` | 用户注册 |
-| 认证 | `POST /api/auth/login` | 用户登录 |
-| 会话 | `GET /api/sessions` | 获取会话列表 |
-| 会话 | `POST /api/sessions` | 创建新会话 |
-| 对话 | `POST /api/chat/text` | 文本对话（SSE 流式） |
-| 对话 | `POST /api/chat/voice/stream` | 语音对话（SSE 流式） |
-| 对话 | `POST /api/chat/wake-word` | 唤醒词检测 |
-| 对话 | `WS /api/chat/ws` | WebSocket 实时对话 |
-| 设置 | `GET /api/settings/tts` | 获取 TTS 设置 |
-| 设置 | `PUT /api/settings/tts` | 更新 TTS 设置 |
-
-完整 API 文档启动后端后访问：http://localhost:8000/docs
 
 ## 技术栈
 
