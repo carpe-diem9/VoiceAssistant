@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">语音助理</string>
+    <string name="accessibility_service_desc">启用后可读取其他应用屏幕文字，配合悬浮球进行原文朗读或 AI 总结朗读。</string>
+    <string name="accessibility_service_summary">屏幕内容朗读助手</string>
+    <string name="floating_ball_notification_title">语音助理悬浮球</string>
+    <string name="floating_ball_notification_text">悬浮球运行中，可在任意应用内朗读文字</string>
+</resources>

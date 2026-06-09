@@ -1,0 +1,13 @@
+﻿llm_model,case_id,category,prompt,answer,answer_len,latency_s,correct,error
+qwen3.5-plus,qa_capital,常识问答,中国的首都是哪里？请直接给出城市名。,北京。,3,31.186,True,
+qwen3.5-plus,qa_science,常识问答,水的化学分子式是什么？只回答分子式。,H₂O,3,10.905,True,
+qwen3.5-plus,math_arith,数学计算,计算 128 × 37 等于多少？只输出数字结果。,4736,4,39.056,True,
+deepseek_v4_flash,qa_capital,常识问答,中国的首都是哪里？请直接给出城市名。,北京。,3,1.019,True,
+deepseek_v4_flash,qa_science,常识问答,水的化学分子式是什么？只回答分子式。,H₂O。,4,0.615,True,
+deepseek_v4_flash,math_arith,数学计算,计算 128 × 37 等于多少？只输出数字结果。,4736,4,0.641,True,
+gpt-5.5,qa_capital,常识问答,中国的首都是哪里？请直接给出城市名。,北京,2,2.918,True,
+gpt-5.5,qa_science,常识问答,水的化学分子式是什么？只回答分子式。,H₂O,3,2.132,True,
+gpt-5.5,math_arith,数学计算,计算 128 × 37 等于多少？只输出数字结果。,4736,4,2.049,True,
+gemini-3.1-pro-preview,qa_capital,常识问答,中国的首都是哪里？请直接给出城市名。,北京。,3,67.328,True,
+gemini-3.1-pro-preview,qa_science,常识问答,水的化学分子式是什么？只回答分子式。,H₂O,3,150.543,True,
+gemini-3.1-pro-preview,math_arith,数学计算,计算 128 × 37 等于多少？只输出数字结果。,,0,,False,Exception: LLM 调用失败: Connection error.

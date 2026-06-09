@@ -1,0 +1,32 @@
+{
+  "name": "voice-assistant-extension",
+  "private": true,
+  "version": "1.0.0",
+  "description": "AI 语音助理 - Chrome 扩展",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.7.5",
+    "marked": "^9.1.6",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "2.0.0-beta.23",
+    "@types/chrome": "^0.0.268",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "typescript": "5.2.2",
+    "vite": "^4.5.3",
+    "vue-tsc": "^1.8.27"
+  },
+  "overrides": {
+    "undici": "5.28.4",
+    "cheerio": "1.0.0-rc.12"
+  }
+}
