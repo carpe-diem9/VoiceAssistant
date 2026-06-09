@@ -1,23 +1,32 @@
 # VoiceAssistant - AI 智能语音助理
 
-基于大语言模型的 Android 智能语音助理系统，支持文本/语音对话、语音唤醒、TTS 语音合成等功能。
+基于大语言模型的多端智能语音助理系统，支持 Android 应用、Chrome 浏览器扩展，提供文本/语音对话、语音唤醒、TTS 语音合成、无障碍辅助等功能。
 
 ## 系统架构
 
 - **后端**：Python FastAPI，提供 REST API + SSE 流式响应 + WebSocket 实时通信
-- **前端**：Flutter Android 应用
-- **AI 服务**：阿里云 DashScope（通义千问系列模型）
-  - ASR 语音识别：qwen3-asr-flash
-  - TTS 语音合成：qwen3-tts-instruct-flash
-  - LLM 大语言模型：qwen3.5-plus
+- **移动端**：Flutter Android 应用
+- **网页端**：Chrome 浏览器扩展（Vue 3 + TypeScript）
 - **数据库**：SQLite（用户信息、会话存储）
 
 ## 功能特性
 
+### 核心功能
 - 语音对话：录音 → ASR 识别 → LLM 回复 → TTS 语音播放
 - 语音唤醒：自定义唤醒词，免触控开始对话
 - TTS 控制：可选语音/文本回答模式，支持音色、语速、音调、音量调节
 - 会话管理：多会话切换、历史记录、左滑删除
+- 深度研究：支持深度推理模式，复杂问题深度分析
+
+### 移动端特性
+- 悬浮球：全局快捷入口，随时唤醒语音助手
+- 无障碍服务：屏幕朗读辅助，文本内容语音播报
+- Material Design：流畅的 Android 原生体验
+
+### 浏览器扩展特性
+- 网页悬浮球：任意网页快速唤起语音助手
+- 侧边栏聊天：网页内嵌聊天界面
+- 网页朗读：朗读网页内容
 
 ## 项目结构
 
@@ -33,15 +42,18 @@ VoiceAssistant/
 │   ├── requirements.txt        # Python 依赖
 │   ├── routers/                # 路由模块
 │   │   ├── auth_router.py      # 认证接口
-│   │   ├── session_router.py   # 会话管理接口
 │   │   ├── chat_router.py      # 对话接口（文本/语音/WebSocket）
-│   │   └── settings_router.py  # 设置接口
-│   └── services/               # 服务模块
-│       ├── asr_service.py      # 语音识别
-│       ├── tts_service.py      # 语音合成
-│       ├── llm_service.py      # 大语言模型
-│       ├── audio_processor.py  # 音频处理
-│       └── vad_service.py      # 语音活动检测
+│   │   ├── session_router.py   # 会话管理接口
+│   │   ├── settings_router.py  # 设置接口
+│   │   └── accessibility_router.py  # 无障碍服务接口
+│   ├── services/               # 服务模块
+│   │   ├── asr_service.py      # 语音识别
+│   │   ├── tts_service.py      # 语音合成
+│   │   ├── llm_service.py      # 大语言模型
+│   │   ├── deep_research.py    # 深度研究服务
+│   │   ├── audio_processor.py  # 音频处理
+│   │   └── vad_service.py      # 语音活动检测
+│   └── benchmark/              # 性能基准测试
 ├── mobile/                     # Flutter 移动端
 │   ├── lib/
 │   │   ├── main.dart           # 应用入口
@@ -53,6 +65,18 @@ VoiceAssistant/
 │   │   └── widgets/            # 自定义组件
 │   ├── android/                # Android 原生配置
 │   └── pubspec.yaml            # Flutter 依赖
+├── extension/                  # Chrome 浏览器扩展
+│   ├── manifest.json           # 扩展清单
+│   ├── package.json            # Node.js 依赖
+│   ├── vite.config.ts          # Vite 构建配置
+│   ├── src/
+│   │   ├── background/         # 后台 Service Worker
+│   │   ├── content/            # 内容脚本（悬浮球）
+│   │   ├── popup/              # 弹出窗口
+│   │   ├── sidepanel/          # 侧边栏
+│   │   ├── options/            # 设置页面
+│   │   └── shared/             # 共享模块（API、状态管理）
+│   └── dist/                   # 构建产物
 └── start.bat                   # Windows 一键启动脚本
 ```
 
@@ -65,6 +89,7 @@ VoiceAssistant/
 | Python | 3.10+ |
 | Flutter SDK | 3.0.0+ |
 | Android SDK | API 21+ |
+| Node.js | 16+（浏览器扩展） |
 
 ### 第一步：配置后端
 
@@ -180,6 +205,24 @@ static const String wsUrl = 'ws://10.0.2.2:8000';
 ```
 
 
+### 第五步：构建 Chrome 浏览器扩展（可选）
+
+```bash
+cd extension
+
+# 安装依赖
+npm install
+
+# 构建
+npm run build
+```
+
+**加载到 Chrome：**
+1. 打开 Chrome 浏览器，访问 `chrome://extensions/`
+2. 开启右上角的"开发者模式"
+3. 点击"加载已解压的扩展程序"
+4. 选择 `extension/dist` 目录
+
 ## 技术栈
 
 **后端**
@@ -188,12 +231,18 @@ static const String wsUrl = 'ws://10.0.2.2:8000';
 - JWT（用户认证）
 - DashScope SDK（AI 服务调用）
 
-**前端**
+**移动端**
 - Flutter 3.0+（跨平台 UI 框架）
 - Provider（状态管理）
 - record（音频录制）
 - just_audio（音频播放）
 - shared_preferences（本地存储）
+
+**浏览器扩展**
+- Vue 3 + TypeScript
+- Vite（构建工具）
+- Pinia（状态管理）
+- Chrome Extension API
 
 ## 许可证
 
